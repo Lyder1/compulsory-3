@@ -13,6 +13,17 @@ public:
 	int year;
 	int hour;
 	int min;
+	file(string setname) {
+		time_t now = time(0);
+		tm* ltm = localtime(&now);
+		name = setname;
+		size = 1 + (rand() % 100);
+		day = ltm->tm_mday;
+		month = 1 + ltm->tm_mon;
+		year = 1900 + ltm->tm_year;
+		hour = ltm->tm_hour;
+		min = ltm->tm_min;
+	}
 
 };
 
@@ -25,8 +36,23 @@ class folder {
 		int year;
 		int hour;
 		int min;
-		file files[10];
+		file* files[10];
 		folder* parentfolder = 0;
+
+		folder(string setName)
+		{
+			time_t now = time(0);
+			tm* ltm = localtime(&now);
+			name = setName;
+			size = 1 + (rand() % 100);
+			day = ltm->tm_mday;
+			month = 1 + ltm->tm_mon;
+			year = 1900 + ltm->tm_year;
+			hour = ltm->tm_hour;
+			min = ltm->tm_min;
+		}
+
+
 		/*
 		folder* folders[5] = { 0 };
 
@@ -70,11 +96,16 @@ class folder {
 		*/
 };
 int addfile() {
-	file* myfiles = new file();
+	time_t now = time(0);
+	tm* ltm = localtime(&now);
+	string filename = "";
+	cin >> filename;
+	file* file1 = new file(filename);
+
 	for (int i = 0; i < 10; i++) {
-		if (myfiles->files[i] == 0) {
+		if (files[i] == 0) {
 			files[i] = new file();
-			return;
+			return 0;
 		}
 		cout << "folder is full" << endl;
 	}
@@ -88,26 +119,13 @@ int newfolder() {
 	cout << "folder name: ";
 	cin >> foldername;
 
+	folder* folder1;
 
-	folder folder1;
-	folder1.name = foldername;
-	folder1.size = 1 + (rand() % 100);
-	folder1.day = ltm->tm_mday;
-	folder1.month = 1 + ltm->tm_mon;
-	folder1.year = 1900 + ltm->tm_year;
-	folder1.hour = ltm->tm_hour;
-	folder1.min = ltm->tm_min;
+	folder* folder1 = new folder(foldername);
 
-	file file1;
-	file1.name = filename;
-	file1.size = 1 + (rand() % 100);
-	file1.day = ltm->tm_mday;
-	file1.month = 1 + ltm->tm_mon;
-	file1.year = 1900 + ltm->tm_year;
-	file1.hour = ltm->tm_hour;
-	file1.min = ltm->tm_min;
+	file* file1 = new file(filename)
 
-	folder1.files[0] = file1;
+	folder1->files[0] = file1;
 	string addanswer = "";
 	cout << endl << foldername << ":" << endl;
 	cout << "enter (file) to add file" << endl << "enter (folder) to add folder" << endl;
@@ -117,11 +135,11 @@ int newfolder() {
 		addfile();
 	}
 	for (int i = 0; i < 11; i++) {
-		if (folder1.files[i].name == "") {
+		if (folder1->files[i]->name == "") {
 			break;
 		}
 		else {
-			cout << folder1.files[i].name << "   " << folder1.files[i].day << "." << folder1.files[i].month << "." << folder1.files[i].year << " " << folder1.files[i].hour << ":" << folder1.files[i].min << " " << folder1.files[i].size << "mb " << endl;
+			cout << folder1->files[i]->name << "   " << folder1->files[i]->day << "." << folder1->files[i]->month << "." << folder1->files[i]->year << " " << folder1->files[i]->hour << ":" << folder1->files[i]->min << " " << folder1->files[i]->size << "mb " << endl;
 		}
 	}
 
