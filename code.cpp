@@ -26,6 +26,48 @@ class folder {
 		int hour;
 		int min;
 		file files[10];
+
+		/*
+		folder* folders[5] = { 0 };
+
+		folder* parentFolder = 0;
+
+		folder()
+		{
+			name = "unknown";
+		}
+
+		folder(string setName, folder* setParentFolder)
+		{
+			name = setName;
+			parentFolder = setParentFolder;
+		}
+
+		folder* GoBack()
+		{
+			if (parentFolder == 0)
+			{
+				cout << "This folder doesnt have a parent!";
+			}
+		}
+
+		void AddFile()
+		{
+			for (int i = 0; i < 10; i++)
+			{
+				if (files[i] == 0)
+				{
+					files[i] = new file();
+					return;
+				}
+
+				cout << "There are no available spots for a new file!";
+			}
+
+
+				
+		}
+		*/
 };
 
 int newfolder() {
@@ -60,7 +102,7 @@ int newfolder() {
 	for (int i = 0; i < 11; i++) {
 		cout << folder1.files[i].name << "   " << folder1.files[i].day << "." << folder1.files[i].month << "." << folder1.files[i].year << " " << folder1.files[i].hour << ":" << folder1.files[i].min << " " << folder1.files[i].size << "mb " << endl;
 	}
-	//cout << folder1.name << "   " << folder1.day << "." << folder1.month << "." << folder1.year << " " << folder1.hour << ":" << folder1.min << " " << folder1.size << "mb " << endl;
+
 	return 0;
 }
 int main() {
@@ -70,5 +112,23 @@ int main() {
 	if (answer == 1) {
 		newfolder();
 	}
+
+	/*
+	folder* currentFolder;
+
+	folder* subFolder = new folder("name", 0);
+
+	if (currentFolder->folders[0] != 0) currentFolder->folders[0] = subFolder;
+
+	currentFolder = currentFolder->folders[0];
+
+	if (currentFolder->parentFolder != 0) currentFolder = currentFolder->parentFolder;
+
+	currentFolder->GoBack();
+
+	currentFolder->name;
+
+	*/
+
 	main();
 }
