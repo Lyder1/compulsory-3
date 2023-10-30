@@ -101,10 +101,10 @@ int addfile() {
 	string filename = "";
 	cin >> filename;
 	file* file1 = new file(filename);
-
+	
 	for (int i = 0; i < 10; i++) {
-		if (files[i] == 0) {
-			files[i] = new file();
+		if (files[i] == "") {
+			files[i] = new file("test");
 			return 0;
 		}
 		cout << "folder is full" << endl;
@@ -119,13 +119,10 @@ int newfolder() {
 	cout << "folder name: ";
 	cin >> foldername;
 
-	folder* folder1;
-
 	folder* folder1 = new folder(foldername);
 
-	file* file1 = new file(filename)
+	file* file1 = new file(filename);
 
-	folder1->files[0] = file1;
 	string addanswer = "";
 	cout << endl << foldername << ":" << endl;
 	cout << "enter (file) to add file" << endl << "enter (folder) to add folder" << endl;
@@ -148,8 +145,6 @@ int newfolder() {
 	return 0;
 }
 int main() {
-	folder* myfolder = new folder();
-	folder array[10];
 		string answer;
 		cout << "enter (folder) to add a folder" << endl;
 		cin >> answer;
@@ -157,9 +152,7 @@ int main() {
 			newfolder();
 
 		}
-		if (myfolder->parentfolder != 0)
-		{
-	}
+
 
 	
 
