@@ -26,7 +26,7 @@ class folder {
 		int hour;
 		int min;
 		file files[10];
-
+		folder* parentfolder = 0;
 		/*
 		folder* folders[5] = { 0 };
 
@@ -69,15 +69,25 @@ class folder {
 		}
 		*/
 };
-
+int addfile() {
+	file* myfiles = new file();
+	for (int i = 0; i < 10; i++) {
+		if (myfiles->files[i] == 0) {
+			files[i] = new file();
+			return;
+		}
+		cout << "folder is full" << endl;
+	}
+	return 0;
+}
 int newfolder() {
 	time_t now = time(0);
 	tm* ltm = localtime(&now);
 	string foldername;
-	string filename;
+	string filename = "";
+	cout << "folder name: ";
 	cin >> foldername;
-	cout << "enter name of file in folder" << endl;
-	cin >> filename;
+
 
 	folder folder1;
 	folder1.name = foldername;
@@ -98,20 +108,42 @@ int newfolder() {
 	file1.min = ltm->tm_min;
 
 	folder1.files[0] = file1;
+	string addanswer = "";
 	cout << endl << foldername << ":" << endl;
-	for (int i = 0; i < 11; i++) {
-		cout << folder1.files[i].name << "   " << folder1.files[i].day << "." << folder1.files[i].month << "." << folder1.files[i].year << " " << folder1.files[i].hour << ":" << folder1.files[i].min << " " << folder1.files[i].size << "mb " << endl;
+	cout << "enter (file) to add file" << endl << "enter (folder) to add folder" << endl;
+	cin >> addanswer;
+	cout << endl;
+	if (addanswer == "file" || addanswer == "File") {
+		addfile();
 	}
+	for (int i = 0; i < 11; i++) {
+		if (folder1.files[i].name == "") {
+			break;
+		}
+		else {
+			cout << folder1.files[i].name << "   " << folder1.files[i].day << "." << folder1.files[i].month << "." << folder1.files[i].year << " " << folder1.files[i].hour << ":" << folder1.files[i].min << " " << folder1.files[i].size << "mb " << endl;
+		}
+	}
+
+
 
 	return 0;
 }
 int main() {
-	int answer;
-	cout << "make folder?" << endl << "enter 1 for yes" << endl;
-	cin >> answer;
-	if (answer == 1) {
-		newfolder();
+	folder* myfolder = new folder();
+	folder array[10];
+		string answer;
+		cout << "enter (folder) to add a folder" << endl;
+		cin >> answer;
+		if (answer == "folder" || answer == "Folder") {
+			newfolder();
+
+		}
+		if (myfolder->parentfolder != 0)
+		{
 	}
+
+	
 
 	/*
 	folder* currentFolder;
@@ -129,6 +161,4 @@ int main() {
 	currentFolder->name;
 
 	*/
-
-	main();
 }
