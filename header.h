@@ -43,10 +43,10 @@ class folder {
 public:
 	int foldercount = 0;
 	int filecount = 0;
-	folder* parentfolder;
 	file files[10];
 	folder* folders[5];
 	string name;
+	folder* parentfolder;
 	int size;
 	int day;
 	int month;
@@ -96,16 +96,24 @@ public:
 		return folders;
 	}
 
-	folder* enterfolder(folder* array[]) {
+	folder* enterfolder(folder* filearray[]) {
 		int index;
 		cout << "what folder do you want to enter?" << endl << "file number:";
 		cin >> index;
-		folders[index-1]->getname();
-		return array[index - 1];
+
+		if (index >= 1 && index <= 5) folders[index-1]->getname();
+		if (index == -1) {
+			return parentfolder;
+		}
+		else {
+			return filearray[index - 1];
+		}
 	}
 	folder* goback() {
-
-	}
+		return parentfolder;
+		printfolders();
+		printfiles();
+}
 
 	void addfile(const file& newFile) {
 		if (filecount < 10) {
@@ -124,6 +132,7 @@ public:
 	void addfolder(folder* newfolder) {
 		if (foldercount < 5) {
 			folders[foldercount] = newfolder;
+			newfolder->parentfolder = this;
 			foldercount++;
 			printfolders();
 			printfiles();
