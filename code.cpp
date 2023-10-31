@@ -48,11 +48,30 @@ folder currentfolder = root;
 				
 		}
 		*/
-
 int main() {
-	folder* subfolder1 = new folder("subfolder");
-	root.addfolder(subfolder1);
-	currentfolder.addfile(file("file1"));
+	string foldername;
+	string filename;
+	int answer;
+	cout << "press 1 to add folder" << endl;
+	cout << "press 2 to add file" << endl;
+	cout << "press 3 to enter folder" << endl;
+	cin >> answer;
+	switch (answer) {
+	case 1:
+		if (answer == 1) {
+			cout << "folder name: ";
+			cin >> foldername;
+			folder* subfolder1 = new folder(foldername);
+			currentfolder.addfolder(subfolder1);
+			break;
+		}
+	case 2:
+		cout << "file name: ";
+		cin >> filename;
+		currentfolder.addfile(file(filename));
+		break;
+	}
+	main();
 }
 	/*
 	folder* currentFolder;
@@ -70,3 +89,8 @@ int main() {
 	currentFolder->name;
 
 	*/
+
+/*
+bugs:
+if folders or files has a space in it, it crashes
+*/

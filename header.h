@@ -67,18 +67,20 @@ public:
 	void printfiles() {
 		for (int i = 0; i < filecount; i++) {
 			if (files[i].min < 10) {
-			cout << files[i].name << "  " << files[i].day << "." << files[i].month << "." << files[i].year << " " << files[i].hour << ":0" << files[i].min << "   " << files[i].size << "mb" << endl;
+			cout << files[i].name << " (File)   " << files[i].day << "." << files[i].month << "." << files[i].year << " " << files[i].hour << ":0" << files[i].min << "   " << files[i].size << "mb" << endl;
 			}else{
-				cout << files[i].name << "  " << files[i].day << "." << files[i].month << "." << files[i].year << " " << files[i].hour << ":" << files[i].min << "   " << files[i].size << "mb" << endl;
+				cout << files[i].name << " (file)   " << files[i].day << "." << files[i].month << "." << files[i].year << " " << files[i].hour << ":" << files[i].min << "   " << files[i].size << "mb" << endl;
 			}
 		}
+		cout << endl;
 	}
 	void printfolders() {
+		cout << endl;
 		for (int i = 0; i < foldercount; i++) {
 			if (folders[i]->min < 10) {
-			cout << folders[i]->name << "  " << folders[i]->day << "." << folders[i]->month << "." << folders[i]->year << " " << folders[i]->hour << ":0" << folders[i]->min << "   " << folders[i]->size << "mb" << endl;
+			cout << folders[i]->name << " (Folder)   " << folders[i]->day << "." << folders[i]->month << "." << folders[i]->year << " " << folders[i]->hour << ":0" << folders[i]->min << "   " << folders[i]->size << "mb" << endl;
 			}else{
-				cout << folders[i]->name << "  " << folders[i]->day << "." << folders[i]->month << "." << folders[i]->year << " " << folders[i]->hour << ":" << folders[i]->min << "   " << folders[i]->size << "mb" << endl;
+				cout << folders[i]->name << " (folder)   " << folders[i]->day << "." << folders[i]->month << "." << folders[i]->year << " " << folders[i]->hour << ":" << folders[i]->min << "   " << folders[i]->size << "mb" << endl;
 			}
 		}
 	}
@@ -86,10 +88,13 @@ public:
 		if (filecount < 10) {
 			files[filecount] = newFile;
 			filecount++;
+			printfolders();
 			printfiles();
 		}
 		else {
-			cout << "folder is full" << endl;
+			cout << endl << "There is no room for another file, file was not added" << endl;
+			printfolders();
+			printfiles();
 		}
 	}
 	void addfolder(folder* newfolder) {
@@ -97,9 +102,12 @@ public:
 			folders[foldercount] = newfolder;
 			foldercount++;
 			printfolders();
+			printfiles();
 		}
 		else {
-			cout << "folder is full" << endl;
+			cout << endl << "There is no room for another folder, folder was not added" << endl;
+			printfolders();
+			printfiles();
 		}
 	}
 };
