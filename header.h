@@ -43,6 +43,7 @@ class folder {
 public:
 	int foldercount = 0;
 	int filecount = 0;
+	folder* parentfolder;
 	file files[10];
 	folder* folders[5];
 	string name;
@@ -64,26 +65,48 @@ public:
 		hour = ltm->tm_hour;
 		min = ltm->tm_min;
 	}
+
 	void printfiles() {
 		for (int i = 0; i < filecount; i++) {
 			if (files[i].min < 10) {
-			cout << files[i].name << " (File)   " << files[i].day << "." << files[i].month << "." << files[i].year << " " << files[i].hour << ":0" << files[i].min << "   " << files[i].size << "mb" << endl;
+			cout << i+1 << ". " << files[i].name << " (File)   " << files[i].day << "." << files[i].month << "." << files[i].year << " " << files[i].hour << ":0" << files[i].min << "   " << files[i].size << "mb" << endl;
 			}else{
-				cout << files[i].name << " (file)   " << files[i].day << "." << files[i].month << "." << files[i].year << " " << files[i].hour << ":" << files[i].min << "   " << files[i].size << "mb" << endl;
+				cout << i+1 << ". " << files[i].name << " (file)   " << files[i].day << "." << files[i].month << "." << files[i].year << " " << files[i].hour << ":" << files[i].min << "   " << files[i].size << "mb" << endl;
 			}
 		}
 		cout << endl;
 	}
+
 	void printfolders() {
 		cout << endl;
 		for (int i = 0; i < foldercount; i++) {
 			if (folders[i]->min < 10) {
-			cout << folders[i]->name << " (Folder)   " << folders[i]->day << "." << folders[i]->month << "." << folders[i]->year << " " << folders[i]->hour << ":0" << folders[i]->min << "   " << folders[i]->size << "mb" << endl;
+			cout << i+1 << ". " << folders[i]->name << " (Folder)   " << folders[i]->day << "." << folders[i]->month << "." << folders[i]->year << " " << folders[i]->hour << ":0" << folders[i]->min << "   " << folders[i]->size << "mb" << endl;
 			}else{
-				cout << folders[i]->name << " (folder)   " << folders[i]->day << "." << folders[i]->month << "." << folders[i]->year << " " << folders[i]->hour << ":" << folders[i]->min << "   " << folders[i]->size << "mb" << endl;
+				cout << i+1 << ". " << folders[i]->name << " (folder)   " << folders[i]->day << "." << folders[i]->month << "." << folders[i]->year << " " << folders[i]->hour << ":" << folders[i]->min << "   " << folders[i]->size << "mb" << endl;
 			}
 		}
 	}
+
+	string getname() {
+		return name;
+	}
+
+	folder** getsubfolder() {
+		return folders;
+	}
+
+	folder* enterfolder(folder* array[]) {
+		int index;
+		cout << "what folder do you want to enter?" << endl << "file number:";
+		cin >> index;
+		folders[index-1]->getname();
+		return array[index - 1];
+	}
+	folder* goback() {
+
+	}
+
 	void addfile(const file& newFile) {
 		if (filecount < 10) {
 			files[filecount] = newFile;
@@ -97,6 +120,7 @@ public:
 			printfiles();
 		}
 	}
+
 	void addfolder(folder* newfolder) {
 		if (foldercount < 5) {
 			folders[foldercount] = newfolder;

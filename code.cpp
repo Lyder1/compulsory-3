@@ -4,9 +4,8 @@
 #include "header.h"
 using namespace std;
 #pragma warning(disable : 4996)
-
-folder root("root");
-folder currentfolder = root;
+folder* mainfolder = new folder("root folder");
+folder* currentfolder = mainfolder;
 		/*
 		folder* folders[5] = { 0 };
 
@@ -62,15 +61,20 @@ int main() {
 			cout << "folder name: ";
 			cin >> foldername;
 			folder* subfolder1 = new folder(foldername);
-			currentfolder.addfolder(subfolder1);
+			currentfolder->addfolder(subfolder1);
 			break;
 		}
 	case 2:
 		cout << "file name: ";
 		cin >> filename;
-		currentfolder.addfile(file(filename));
+		currentfolder->addfile(file(filename));
 		break;
+	case 3:
+		currentfolder = currentfolder->enterfolder(currentfolder->getsubfolder());
+	case 6:
+		currentfolder = currentfolder->goback();
 	}
+	main();
 }
 	/*
 	folder* currentFolder;
