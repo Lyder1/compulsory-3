@@ -71,7 +71,6 @@ int main() {
 		currentfolder.addfile(file(filename));
 		break;
 	}
-	//main();
 }
 	/*
 	folder* currentFolder;
