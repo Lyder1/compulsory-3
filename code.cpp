@@ -1,58 +1,12 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+#include "header.h"
 using namespace std;
 #pragma warning(disable : 4996)
 
-class file {
-public:
-	string name;
-	int size;
-	int day;
-	int month;
-	int year;
-	int hour;
-	int min;
-	file(string setname) {
-		time_t now = time(0);
-		tm* ltm = localtime(&now);
-		name = setname;
-		size = 1 + (rand() % 100);
-		day = ltm->tm_mday;
-		month = 1 + ltm->tm_mon;
-		year = 1900 + ltm->tm_year;
-		hour = ltm->tm_hour;
-		min = ltm->tm_min;
-	}
-
-};
-
-class folder {
-	public:
-		string name;
-		int size;
-		int day;
-		int month;
-		int year;
-		int hour;
-		int min;
-		file* files[10];
-		folder* parentfolder = 0;
-
-		folder(string setName)
-		{
-			time_t now = time(0);
-			tm* ltm = localtime(&now);
-			name = setName;
-			size = 1 + (rand() % 100);
-			day = ltm->tm_mday;
-			month = 1 + ltm->tm_mon;
-			year = 1900 + ltm->tm_year;
-			hour = ltm->tm_hour;
-			min = ltm->tm_min;
-		}
-
-
+folder root("root");
+folder currentfolder = root;
 		/*
 		folder* folders[5] = { 0 };
 
@@ -94,68 +48,12 @@ class folder {
 				
 		}
 		*/
-};
-int addfile() {
-	time_t now = time(0);
-	tm* ltm = localtime(&now);
-	string filename = "";
-	cin >> filename;
-	file* file1 = new file(filename);
-	
-	for (int i = 0; i < 10; i++) {
-		if (files[i] == "") {
-			files[i] = new file("test");
-			return 0;
-		}
-		cout << "folder is full" << endl;
-	}
-	return 0;
-}
-int newfolder() {
-	time_t now = time(0);
-	tm* ltm = localtime(&now);
-	string foldername;
-	string filename = "";
-	cout << "folder name: ";
-	cin >> foldername;
 
-	folder* folder1 = new folder(foldername);
-
-	file* file1 = new file(filename);
-
-	string addanswer = "";
-	cout << endl << foldername << ":" << endl;
-	cout << "enter (file) to add file" << endl << "enter (folder) to add folder" << endl;
-	cin >> addanswer;
-	cout << endl;
-	if (addanswer == "file" || addanswer == "File") {
-		addfile();
-	}
-	for (int i = 0; i < 11; i++) {
-		if (folder1->files[i]->name == "") {
-			break;
-		}
-		else {
-			cout << folder1->files[i]->name << "   " << folder1->files[i]->day << "." << folder1->files[i]->month << "." << folder1->files[i]->year << " " << folder1->files[i]->hour << ":" << folder1->files[i]->min << " " << folder1->files[i]->size << "mb " << endl;
-		}
-	}
-
-
-
-	return 0;
-}
 int main() {
-		string answer;
-		cout << "enter (folder) to add a folder" << endl;
-		cin >> answer;
-		if (answer == "folder" || answer == "Folder") {
-			newfolder();
-
-		}
-
-
-	
-
+	folder* subfolder1 = new folder("subfolder");
+	root.addfolder(subfolder1);
+	currentfolder.addfile(file("file1"));
+}
 	/*
 	folder* currentFolder;
 
@@ -172,4 +70,3 @@ int main() {
 	currentFolder->name;
 
 	*/
-}
