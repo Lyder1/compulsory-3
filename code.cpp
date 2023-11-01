@@ -52,7 +52,7 @@ int main() {
 	string foldername;
 	string filename;
 	int answer;
-
+	cout << currentfolder->parentfolder << endl;
 	while (true)
 	{
 		cout << "press 1 to add folder" << endl;
@@ -62,20 +62,30 @@ int main() {
 		cin >> answer;
 		switch (answer) {
 		case 1:
-			if (answer == 1) {
+			if(answer == 1)	{	
 				cout << "folder name: ";
 				cin >> foldername;
 				folder* subfolder1 = new folder(foldername);
 				currentfolder->addfolder(subfolder1);
+				cout << endl << currentfolder->getname() << ":";
+				currentfolder->printfolders();
+				currentfolder->printfiles();
 				break;
 			}
 		case 2:
 			cout << "file name: ";
 			cin >> filename;
 			currentfolder->addfile(file(filename));
+			cout << endl << currentfolder->getname() << ":";
+			currentfolder->printfolders();
+			currentfolder->printfiles();
 			break;
 		case 3:
+			cout << currentfolder->getname() << ":" << endl;
 			currentfolder = currentfolder->enterfolder(currentfolder->getsubfolder());
+			cout << endl << currentfolder->getname() << ":";
+			currentfolder->printfolders();
+			currentfolder->printfiles();
 			break;
 		case 4:
 			return 0;
@@ -101,5 +111,5 @@ int main() {
 
 /*
 bugs:
-if folders or files has a space in it, it crashes
+if folders or files has a space in it, it crashes (just a space is fine-ish, but it crashes if it is between two letters)
 */

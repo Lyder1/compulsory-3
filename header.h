@@ -97,35 +97,57 @@ public:
 	}
 
 	folder* enterfolder(folder* filearray[]) {
+		if (foldercount == 0 && parentfolder == 0) {
+			cout << "you do not have any folder to enter so a folder has been added automatically" << endl;
+			folder* subfolder1 = new folder("emergency folder");
+			addfolder(subfolder1);
+			printfolders();
+			printfiles();
+		}
 		int index;
-		cout << "what folder do you want to enter?" << endl << "file number:";
+		cout << "what folder do you want to enter?" << endl << "folder number:";
 		cin >> index;
 
-		if (index >= 1 && index <= 5) folders[index-1]->getname();
+		if (index >= 1 && index <= foldercount) {
+			folders[index - 1]->getname();
+		}
+		if(index > foldercount){
+			while (index < 1 || index > foldercount) {
+				cout << "you dont have a folder with that number, please reenter" << endl << "folder number:";
+				cin >> index;
+				
+			}
+			return filearray[index - 1];
+		}
 		if (index == -1) {
-			return parentfolder;
+			if(parentfolder != 0){
+				return parentfolder;
+			}else {
+				cout << "you are in root folder, please enter a folder number" << endl << "folder number:";
+				while (index < 1 || index > foldercount) {
+					cin >> index;
+					if (index == -1) {
+						cout << "you are in the root folder, please enter a folder number" << endl << "folder number:";
+					}
+					else {
+						cout << "you dont have a folder with that number, please reenter" << endl << "folder number:";
+					}
+				}
+				return filearray[index - 1];
+			}
 		}
 		else {
 			return filearray[index - 1];
 		}
 	}
-	folder* goback() {
-		return parentfolder;
-		printfolders();
-		printfiles();
-}
 
 	void addfile(const file& newFile) {
 		if (filecount < 10) {
 			files[filecount] = newFile;
 			filecount++;
-			printfolders();
-			printfiles();
 		}
 		else {
 			cout << endl << "There is no room for another file, file was not added" << endl;
-			printfolders();
-			printfiles();
 		}
 	}
 
@@ -134,13 +156,9 @@ public:
 			folders[foldercount] = newfolder;
 			newfolder->parentfolder = this;
 			foldercount++;
-			printfolders();
-			printfiles();
 		}
 		else {
 			cout << endl << "There is no room for another folder, folder was not added" << endl;
-			printfolders();
-			printfiles();
 		}
 	}
 };
