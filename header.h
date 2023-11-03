@@ -88,6 +88,36 @@ public:
 		}
 	}
 
+	void renamefolder() {
+		string newname;
+		if (foldercount == 0) {
+			cout << "you do not have a folder to rename" << endl << endl;
+		}else{
+			int index;
+			cout << "What folder do you want to rename?" << endl << "Folder number:";
+			cin >> index;
+			if (index >= 1 && index <= foldercount) {
+				cout << "what do you want to rename the folder?" << endl << "New folder name:";
+				cin >> newname;
+				folders[index - 1]->name = newname;
+				printfolders();
+				printfiles();
+
+			}
+			else {
+				while (index < 1 || index > foldercount) {
+					cout << "You do not have a folder with that number, please reenter" << endl << "Folder number:";
+					cin >> index;
+				}
+				cout << "what do you want to rename the folder?" << endl << "New folder name:";
+				cin >> newname;
+				folders[index - 1]->name = newname;
+				printfolders();
+				printfiles();
+			}
+		}
+	}
+
 	string getname() {
 		return name;
 	}
@@ -99,13 +129,13 @@ public:
 	folder* enterfolder(folder* filearray[]) {
 		if (foldercount == 0 && parentfolder == 0) {
 			cout << "you do not have any folder to enter so a folder has been added automatically" << endl;
-			folder* subfolder1 = new folder("emergency folder");
+			folder* subfolder1 = new folder("new folder");
 			addfolder(subfolder1);
 			printfolders();
 			printfiles();
 		}
 		int index;
-		cout << "what folder do you want to enter?" << endl << "folder number:";
+		cout << "what folder do you want to enter? (enter -1 if you want to return to previous folder)" << endl << "folder number:";
 		cin >> index;
 
 		if (index >= 1 && index <= foldercount) {
@@ -113,7 +143,7 @@ public:
 		}
 		if(index > foldercount){
 			while (index < 1 || index > foldercount) {
-				cout << "you dont have a folder with that number, please reenter" << endl << "folder number:";
+				cout << "you do not have a folder with that number, please reenter" << endl << "folder number:";
 				cin >> index;
 				
 			}
@@ -129,7 +159,7 @@ public:
 					if (index == -1) {
 						cout << "you are in the root folder, please enter a folder number" << endl << "folder number:";
 					}
-					else {
+					if(index > foldercount) {
 						cout << "you dont have a folder with that number, please reenter" << endl << "folder number:";
 					}
 				}

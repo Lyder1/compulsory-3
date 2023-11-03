@@ -52,13 +52,13 @@ int main() {
 	string foldername;
 	string filename;
 	int answer;
-	cout << currentfolder->parentfolder << endl;
 	while (true)
 	{
-		cout << "press 1 to add folder" << endl;
-		cout << "press 2 to add file" << endl;
-		cout << "press 3 to enter folder" << endl;
-		cout << "press 4 to exit program" << endl;
+		cout << "Press 1 to add folder" << endl;
+		cout << "Press 2 to add file" << endl;
+		cout << "Press 3 to enter folder" << endl;
+		cout << "Press 4 to rename folder" << endl;
+		cout << "Press 8 to exit program" << endl;
 		cin >> answer;
 		switch (answer) {
 		case 1:
@@ -88,6 +88,9 @@ int main() {
 			currentfolder->printfiles();
 			break;
 		case 4:
+			currentfolder->renamefolder();
+			break;
+		case 8:
 			return 0;
 		}
 	}
