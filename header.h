@@ -71,7 +71,7 @@ public:
 			if (files[i].min < 10) {
 			cout << i+1 << ". " << files[i].name << " (File)   " << files[i].day << "." << files[i].month << "." << files[i].year << " " << files[i].hour << ":0" << files[i].min << "   " << files[i].size << "mb" << endl;
 			}else{
-				cout << i+1 << ". " << files[i].name << " (file)   " << files[i].day << "." << files[i].month << "." << files[i].year << " " << files[i].hour << ":" << files[i].min << "   " << files[i].size << "mb" << endl;
+				cout << i+1 << ". " << files[i].name << " (File)   " << files[i].day << "." << files[i].month << "." << files[i].year << " " << files[i].hour << ":" << files[i].min << "   " << files[i].size << "mb" << endl;
 			}
 		}
 		cout << endl;
@@ -83,7 +83,7 @@ public:
 			if (folders[i]->min < 10) {
 			cout << i+1 << ". " << folders[i]->name << " (Folder)   " << folders[i]->day << "." << folders[i]->month << "." << folders[i]->year << " " << folders[i]->hour << ":0" << folders[i]->min << "   " << folders[i]->size << "mb" << endl;
 			}else{
-				cout << i+1 << ". " << folders[i]->name << " (folder)   " << folders[i]->day << "." << folders[i]->month << "." << folders[i]->year << " " << folders[i]->hour << ":" << folders[i]->min << "   " << folders[i]->size << "mb" << endl;
+				cout << i+1 << ". " << folders[i]->name << " (Folder)   " << folders[i]->day << "." << folders[i]->month << "." << folders[i]->year << " " << folders[i]->hour << ":" << folders[i]->min << "   " << folders[i]->size << "mb" << endl;
 			}
 		}
 	}
@@ -91,13 +91,13 @@ public:
 	void renamefolder() {
 		string newname;
 		if (foldercount == 0) {
-			cout << "you do not have a folder to rename" << endl << endl;
+			cout << "You do not have a folder to rename" << endl << endl;
 		}else{
 			int index;
 			cout << "What folder do you want to rename?" << endl << "Folder number:";
 			cin >> index;
 			if (index >= 1 && index <= foldercount) {
-				cout << "what do you want to rename the folder?" << endl << "New folder name:";
+				cout << "What do you want to rename the folder?" << endl << "New folder name:";
 				cin >> newname;
 				folders[index - 1]->name = newname;
 				printfolders();
@@ -109,7 +109,7 @@ public:
 					cout << "You do not have a folder with that number, please reenter" << endl << "Folder number:";
 					cin >> index;
 				}
-				cout << "what do you want to rename the folder?" << endl << "New folder name:";
+				cout << "What do you want to rename the folder?" << endl << "New folder name:";
 				cin >> newname;
 				folders[index - 1]->name = newname;
 				printfolders();
@@ -121,14 +121,14 @@ public:
 	void renamefile() {
 		string newname;
 		if (filecount == 0) {
-			cout << "you do not have a file to rename" << endl << endl;
+			cout << "You do not have a file to rename" << endl << endl;
 		}
 		else {
 			int index;
 			cout << "What file do you want to rename?" << endl << "File number:";
 			cin >> index;
 			if (index >= 1 && index <= filecount) {
-				cout << "what do you want to rename the file?" << endl << "New file name:";
+				cout << "What do you want to rename the file?" << endl << "New file name:";
 				cin >> newname;
 				files[index - 1].name = newname;
 				printfolders();
@@ -140,13 +140,79 @@ public:
 					cout << "You do not have a file with that number, please reenter" << endl << "File number:";
 					cin >> index;
 				}
-				cout << "what do you want to rename the file?" << endl << "New file name:";
+				cout << "What do you want to rename the file?" << endl << "New file name:";
 				cin >> newname;
 				files[index - 1].name = newname;
 				printfolders();
 				printfiles();
 			}
 		}
+	}
+
+	void biggestfile() {
+		time_t now = time(0);
+		tm* ltm = localtime(&now);
+		int index;
+		string bfname;
+		int bfsize = 0;
+		int bfday;
+		int bfmonth;
+		int bfyear;
+		int bfhour;
+		int bfmin;
+
+		if (foldercount == 0) {
+			cout << "You do not have a folder to check" << endl << endl;
+		}else {
+			cout << "What folder do you want to check?" << endl << "Folder number:";
+			cin >> index;
+			if (folders[index - 1]->filecount == 0) {
+				cout << endl << "This folder is empty" << endl;
+			}else if (index >= 1 && index <= foldercount) {
+				for(int i = 0; i < folders[index-1]->filecount; i ++){
+					if (bfsize < folders[index - 1]->files[i].size) {
+						bfname = folders[index - 1]->files[i].name;
+						bfsize = folders[index - 1]->files[i].size;
+						bfday = folders[index - 1]->files[i].day;
+						bfmonth = folders[index - 1]->files[i].month;
+						bfyear = folders[index - 1]->files[i].year;
+						bfhour = folders[index - 1]->files[i].hour;
+						bfmin = folders[index - 1]->files[i].min;
+					}
+				}
+				if (bfmin < 10) {
+					cout << endl << "Biggest file in searched folder: " << bfname << "   " << bfday << "." << bfmonth << "." << bfyear << " " << bfhour << ":0" << bfmin << "   " << bfsize << "mb" << endl << endl;
+				}
+				else {
+					cout << endl << "Biggest file in searched folder: " << bfname << "   " << bfday << "." << bfmonth << "." << bfyear << " " << bfhour << ":" << bfmin << "   " << bfsize << "mb" << endl << endl;
+				}
+			}
+			else {
+				while (index < 1 || index > foldercount) {
+					cout << "You do not have a folder with that number, please reenter" << endl << "Folder number:";
+					cin >> index;
+				}
+				for (int i = 0; i < folders[index - 1]->filecount; i++) {
+					if (bfsize < folders[index - 1]->files[i].size) {
+						bfname = folders[index - 1]->files[i].name;
+						bfsize = folders[index - 1]->files[i].size;
+						bfday = folders[index - 1]->files[i].day;
+						bfmonth = folders[index - 1]->files[i].month;
+						bfyear = folders[index - 1]->files[i].year;
+						bfhour = folders[index - 1]->files[i].hour;
+						bfmin = folders[index - 1]->files[i].min;
+					}
+				}
+				if (bfmin < 10) {
+					cout << "Biggest file in searched folder: " << bfname << "   " << bfday << "." << bfmonth << "." << bfyear << " " << bfhour << ":0" << bfmin << "   " << bfsize << "mb" << endl;
+				}
+				else {
+					cout << "Biggest file in searched folder: " << bfname << "   " << bfday << "." << bfmonth << "." << bfyear << " " << bfhour << ":" << bfmin << "   " << bfsize << "mb" << endl;
+				}
+			}
+		}
+		printfolders();
+		printfiles();
 	}
 
 	string getname() {
@@ -159,14 +225,14 @@ public:
 
 	folder* enterfolder(folder* filearray[]) {
 		if (foldercount == 0 && parentfolder == 0) {
-			cout << "you do not have any folder to enter so a folder has been added automatically" << endl;
-			folder* subfolder1 = new folder("new folder");
+			cout << "You do not have any folder to enter so a folder has been added automatically" << endl;
+			folder* subfolder1 = new folder("New folder");
 			addfolder(subfolder1);
 			printfolders();
 			printfiles();
 		}
 		int index;
-		cout << "enter a folder number to enter or enter (-1) to return to previous folder" << endl << "folder number:";
+		cout << "Enter a folder number to enter or enter (-1) to return to previous folder" << endl << "Folder number:";
 		cin >> index;
 
 		if (index >= 1 && index <= foldercount) {
@@ -174,7 +240,7 @@ public:
 		}
 		if(index > foldercount){
 			while (index < 1 || index > foldercount) {
-				cout << "you do not have a folder with that number, please reenter" << endl << "folder number:";
+				cout << "You do not have a folder with that number, please reenter" << endl << "Folder number:";
 				cin >> index;
 				
 			}
@@ -184,14 +250,14 @@ public:
 			if(parentfolder != 0){
 				return parentfolder;
 			}else {
-				cout << "you are in root folder, please enter a folder number" << endl << "folder number:";
+				cout << "You are in root folder, please enter a folder number" << endl << "Folder number:";
 				while (index < 1 || index > foldercount) {
 					cin >> index;
 					if (index == -1) {
-						cout << "you are in the root folder, please enter a folder number" << endl << "folder number:";
+						cout << "You are in the root folder, please enter a folder number" << endl << "Folder number:";
 					}
 					if(index > foldercount) {
-						cout << "you dont have a folder with that number, please reenter" << endl << "folder number:";
+						cout << "You dont have a folder with that number, please reenter" << endl << "Folder number:";
 					}
 				}
 				return filearray[index - 1];

@@ -4,9 +4,10 @@
 #include "header.h"
 using namespace std;
 #pragma warning(disable : 4996)
-folder* mainfolder = new folder("root folder");
+folder* mainfolder = new folder("Root folder");
 folder* currentfolder = mainfolder;
 folder* parentfolder = currentfolder;
+folder* foldercheck;
 		/*
 		folder* folders[5] = { 0 };
 
@@ -59,12 +60,13 @@ int main() {
 		cout << "Press 3 to enter or return to previous folder" << endl;
 		cout << "Press 4 to rename folder" << endl;
 		cout << "Press 5 to rename file" << endl;
+		cout << "Press 6 to find biggest file in a folder" << endl;
 		cout << "Press 8 to exit program" << endl;
 		cin >> answer;
 		switch (answer) {
 		case 1:
 			if(answer == 1)	{	
-				cout << "folder name: ";
+				cout << "Folder name: ";
 				cin >> foldername;
 				folder* subfolder1 = new folder(foldername);
 				currentfolder->addfolder(subfolder1);
@@ -74,7 +76,7 @@ int main() {
 				break;
 			}
 		case 2:
-			cout << "file name: ";
+			cout << "File name: ";
 			cin >> filename;
 			currentfolder->addfile(file(filename));
 			cout << endl << currentfolder->getname() << ":";
@@ -93,6 +95,9 @@ int main() {
 			break;
 		case 5:
 			currentfolder->renamefile();
+			break;
+		case 6:
+			currentfolder->biggestfile();
 			break;
 		case 8:
 			return 0;
