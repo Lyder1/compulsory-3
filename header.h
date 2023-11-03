@@ -118,6 +118,37 @@ public:
 		}
 	}
 
+	void renamefile() {
+		string newname;
+		if (filecount == 0) {
+			cout << "you do not have a file to rename" << endl << endl;
+		}
+		else {
+			int index;
+			cout << "What file do you want to rename?" << endl << "File number:";
+			cin >> index;
+			if (index >= 1 && index <= filecount) {
+				cout << "what do you want to rename the file?" << endl << "New file name:";
+				cin >> newname;
+				files[index - 1].name = newname;
+				printfolders();
+				printfiles();
+
+			}
+			else {
+				while (index < 1 || index > filecount) {
+					cout << "You do not have a file with that number, please reenter" << endl << "File number:";
+					cin >> index;
+				}
+				cout << "what do you want to rename the file?" << endl << "New file name:";
+				cin >> newname;
+				files[index - 1].name = newname;
+				printfolders();
+				printfiles();
+			}
+		}
+	}
+
 	string getname() {
 		return name;
 	}
@@ -135,7 +166,7 @@ public:
 			printfiles();
 		}
 		int index;
-		cout << "what folder do you want to enter? (enter -1 if you want to return to previous folder)" << endl << "folder number:";
+		cout << "enter a folder number to enter or enter (-1) to return to previous folder" << endl << "folder number:";
 		cin >> index;
 
 		if (index >= 1 && index <= foldercount) {

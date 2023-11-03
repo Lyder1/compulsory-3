@@ -56,8 +56,9 @@ int main() {
 	{
 		cout << "Press 1 to add folder" << endl;
 		cout << "Press 2 to add file" << endl;
-		cout << "Press 3 to enter folder" << endl;
+		cout << "Press 3 to enter or return to previous folder" << endl;
 		cout << "Press 4 to rename folder" << endl;
+		cout << "Press 5 to rename file" << endl;
 		cout << "Press 8 to exit program" << endl;
 		cin >> answer;
 		switch (answer) {
@@ -89,6 +90,9 @@ int main() {
 			break;
 		case 4:
 			currentfolder->renamefolder();
+			break;
+		case 5:
+			currentfolder->renamefile();
 			break;
 		case 8:
 			return 0;
