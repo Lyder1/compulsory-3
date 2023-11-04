@@ -10,7 +10,8 @@ folder* currentfolder = mainfolder;
 folder* parentfolder = currentfolder;
 folder* foldercheck;
 
-int errorcontrolint() {
+
+int errorcontrolint() { //this fucntion checks if all int inputs are valid aka numbers
 	int input;
 	cin >> input;
 
@@ -97,8 +98,3 @@ int main() {
 		}
 	}
 }
-
-/*
-bugs:
-if folders or files has a space in it, it crashes (just a space is fine-ish, but it crashes if it is between two letters)
-*/

@@ -80,7 +80,8 @@ public:
 
 	string errorcontrolstr() {
 		string input;
-		cin >> input;
+		cin.ignore();
+		getline(cin, input);
 
 		while (cin.fail()) {
 			cin.clear();
