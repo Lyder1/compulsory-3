@@ -65,6 +65,31 @@ public:
 		hour = ltm->tm_hour;
 		min = ltm->tm_min;
 	}
+	int errorcontrolint() {
+		int input;
+		cin >> input;
+
+		while (cin.fail()) {
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			cout << "Please enter valid input" << endl << "input:";
+			cin >> input;
+		}
+		return input;
+	}
+
+	string errorcontrolstr() {
+		string input;
+		cin >> input;
+
+		while (cin.fail()) {
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			cout << "Please enter valid input" << endl << "input:";
+			cin >> input;
+		}
+		return input;
+	}
 
 	void printfiles() {
 		for (int i = 0; i < filecount; i++) {
@@ -95,10 +120,10 @@ public:
 		}else{
 			int index;
 			cout << "What folder do you want to rename?" << endl << "Folder number:";
-			cin >> index;
+			index = errorcontrolint();
 			if (index >= 1 && index <= foldercount) {
 				cout << "What do you want to rename the folder?" << endl << "New folder name:";
-				cin >> newname;
+				newname = errorcontrolstr();
 				folders[index - 1]->name = newname;
 				printfolders();
 				printfiles();
@@ -107,10 +132,10 @@ public:
 			else {
 				while (index < 1 || index > foldercount) {
 					cout << "You do not have a folder with that number, please reenter" << endl << "Folder number:";
-					cin >> index;
+					index = errorcontrolint();
 				}
 				cout << "What do you want to rename the folder?" << endl << "New folder name:";
-				cin >> newname;
+				newname = errorcontrolstr();
 				folders[index - 1]->name = newname;
 				printfolders();
 				printfiles();
@@ -126,10 +151,10 @@ public:
 		else {
 			int index;
 			cout << "What file do you want to rename?" << endl << "File number:";
-			cin >> index;
+			index = errorcontrolint();
 			if (index >= 1 && index <= filecount) {
 				cout << "What do you want to rename the file?" << endl << "New file name:";
-				cin >> newname;
+				newname = errorcontrolstr();
 				files[index - 1].name = newname;
 				printfolders();
 				printfiles();
@@ -138,10 +163,10 @@ public:
 			else {
 				while (index < 1 || index > filecount) {
 					cout << "You do not have a file with that number, please reenter" << endl << "File number:";
-					cin >> index;
+					index = errorcontrolint();
 				}
 				cout << "What do you want to rename the file?" << endl << "New file name:";
-				cin >> newname;
+				newname = errorcontrolstr();
 				files[index - 1].name = newname;
 				printfolders();
 				printfiles();
@@ -165,7 +190,7 @@ public:
 			cout << "You do not have a folder to check" << endl << endl;
 		}else {
 			cout << "What folder do you want to check?" << endl << "Folder number:";
-			cin >> index;
+			index = errorcontrolint();
 			if (folders[index - 1]->filecount == 0) {
 				cout << endl << "This folder is empty" << endl;
 			}else if (index >= 1 && index <= foldercount) {
@@ -190,7 +215,7 @@ public:
 			else {
 				while (index < 1 || index > foldercount) {
 					cout << "You do not have a folder with that number, please reenter" << endl << "Folder number:";
-					cin >> index;
+					index = errorcontrolint();
 				}
 				for (int i = 0; i < folders[index - 1]->filecount; i++) {
 					if (bfsize < folders[index - 1]->files[i].size) {
@@ -233,7 +258,7 @@ public:
 		}
 		int index;
 		cout << "Enter a folder number to enter or enter (-1) to return to previous folder" << endl << "Folder number:";
-		cin >> index;
+		index = errorcontrolint();
 
 		if (index >= 1 && index <= foldercount) {
 			folders[index - 1]->getname();
@@ -241,7 +266,7 @@ public:
 		if(index > foldercount){
 			while (index < 1 || index > foldercount) {
 				cout << "You do not have a folder with that number, please reenter" << endl << "Folder number:";
-				cin >> index;
+				index = errorcontrolint();
 				
 			}
 			return filearray[index - 1];
@@ -252,7 +277,7 @@ public:
 			}else {
 				cout << "You are in root folder, please enter a folder number" << endl << "Folder number:";
 				while (index < 1 || index > foldercount) {
-					cin >> index;
+					index = errorcontrolint();
 					if (index == -1) {
 						cout << "You are in the root folder, please enter a folder number" << endl << "Folder number:";
 					}

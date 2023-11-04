@@ -2,53 +2,41 @@
 #include <cstdlib>
 #include <ctime>
 #include "header.h"
+#include <string>
 using namespace std;
 #pragma warning(disable : 4996)
 folder* mainfolder = new folder("Root folder");
 folder* currentfolder = mainfolder;
 folder* parentfolder = currentfolder;
 folder* foldercheck;
-		/*
-		folder* folders[5] = { 0 };
 
-		folder* parentFolder = 0;
+int errorcontrolint() {
+	int input;
+	cin >> input;
 
-		folder()
-		{
-			name = "unknown";
-		}
+	while (cin.fail()) {
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		cout << "Please enter valid input" << endl << "input:";
+		cin >> input;
+	}
+	return input;
+}
 
-		folder(string setName, folder* setParentFolder)
-		{
-			name = setName;
-			parentFolder = setParentFolder;
-		}
+string errorcontrolstr() {
+	string input;
+	cin.ignore();
+	getline(cin, input);
 
-		folder* GoBack()
-		{
-			if (parentFolder == 0)
-			{
-				cout << "This folder doesnt have a parent!";
-			}
-		}
+	while (cin.fail()) {
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		cout << "Please enter valid input" << endl << "input:";
+		getline(cin, input);
+	}
+	return input;
+}
 
-		void AddFile()
-		{
-			for (int i = 0; i < 10; i++)
-			{
-				if (files[i] == 0)
-				{
-					files[i] = new file();
-					return;
-				}
-
-				cout << "There are no available spots for a new file!";
-			}
-
-
-				
-		}
-		*/
 int main() {
 	string foldername;
 	string filename;
@@ -61,13 +49,18 @@ int main() {
 		cout << "Press 4 to rename folder" << endl;
 		cout << "Press 5 to rename file" << endl;
 		cout << "Press 6 to find biggest file in a folder" << endl;
-		cout << "Press 8 to exit program" << endl;
-		cin >> answer;
+		cout << "Press 7 to exit program" << endl;
+		cout << "Operation number:";
+		answer = errorcontrolint();
+		while(answer < 1 || answer >7){
+			cout << "Please enter a valid operation number" << endl << "Operation number:";
+			answer = errorcontrolint();
+		}
 		switch (answer) {
 		case 1:
 			if(answer == 1)	{	
 				cout << "Folder name: ";
-				cin >> foldername;
+				foldername = errorcontrolstr();
 				folder* subfolder1 = new folder(foldername);
 				currentfolder->addfolder(subfolder1);
 				cout << endl << currentfolder->getname() << ":";
@@ -77,7 +70,7 @@ int main() {
 			}
 		case 2:
 			cout << "File name: ";
-			cin >> filename;
+			filename = errorcontrolstr();
 			currentfolder->addfile(file(filename));
 			cout << endl << currentfolder->getname() << ":";
 			currentfolder->printfolders();
@@ -99,27 +92,11 @@ int main() {
 		case 6:
 			currentfolder->biggestfile();
 			break;
-		case 8:
+		case 7:
 			return 0;
 		}
 	}
 }
-	/*
-	folder* currentFolder;
-
-	folder* subFolder = new folder("name", 0);
-
-	if (currentFolder->folders[0] != 0) currentFolder->folders[0] = subFolder;
-
-	currentFolder = currentFolder->folders[0];
-
-	if (currentFolder->parentFolder != 0) currentFolder = currentFolder->parentFolder;
-
-	currentFolder->GoBack();
-
-	currentFolder->name;
-
-	*/
 
 /*
 bugs:
