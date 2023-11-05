@@ -17,13 +17,13 @@ int errorcontrolint() { //checks if all int inputs are valid aka numbers
 	bool digitcheck;
 	cin >> inputstr;
 
-	for (int i = 0; i < inputstr.length(); i++) {
+	for (int i = 0; i < inputstr.length(); i++) {//for loop to check every letter or number and returns true if string only contains numbers
 		digitcheck = isdigit(inputstr[i]);
 		if(!digitcheck) {
 			break;
 		}
 	}
-	while (!digitcheck) {
+	while (!digitcheck) {//makes user reenter if digitcheck returns false
 		cin.clear();
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');
 		cout << "Please enter valid input" << endl << "input:";
@@ -36,22 +36,22 @@ int errorcontrolint() { //checks if all int inputs are valid aka numbers
 		}
 	}
 
-	while (cin.fail()) {
+	while (cin.fail()) {//the above should fix most problems but here is a simple fix if something wierd happens. a simple if failed, reenter input
 		cin.clear();
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');
 		cout << "Please enter valid input" << endl << "input:";
 		cin >> inputstr;
 	}
-	input = stoi(inputstr);
+	input = stoi(inputstr); // converts string to int
 	return input;
 }
 
 string errorcontrolstr() { //checks if all strings are valid, dont know how you can fuck up a string but this should fix it if its possible
 	string input;
 	cin.ignore();
-	getline(cin, input);
+	getline(cin, input); // the getline command allows the user to actually enter a "space"
 
-	while (cin.fail()) {
+	while (cin.fail()) {//if input failed, reenter input
 		cin.clear();
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');
 		cout << "Please enter valid input" << endl << "input:";
@@ -64,7 +64,7 @@ int main() { //this the main menu, here the code calls for all main functions
 	string foldername;
 	string filename;
 	int answer;
-	while (true)
+	while (true) //just a loop to make it run again and again forever
 	{
 		cout << "Press 1 to add folder" << endl;
 		cout << "Press 2 to add file" << endl;
@@ -79,7 +79,7 @@ int main() { //this the main menu, here the code calls for all main functions
 			cout << "Please enter a valid operation number" << endl << "Operation number:";
 			answer = errorcontrolint();
 		}
-		switch (answer) {
+		switch (answer) { //case switch to select the right operation
 		case 1:
 			if(answer == 1)	{	
 				cout << "Folder name: ";

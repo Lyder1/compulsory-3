@@ -119,10 +119,17 @@ public:
 
 	void printfiles() { // print all files in the current folder
 		for (int i = 0; i < filecount; i++) {
-			if (files[i].min < 10) {
-			cout << i+1 << ". " << files[i].name << " (File)   " << files[i].day << "." << files[i].month << "." << files[i].year << " " << files[i].hour << ":0" << files[i].min << "   " << files[i].size << "mb" << endl;
-			}else{
-				cout << i+1 << ". " << files[i].name << " (File)   " << files[i].day << "." << files[i].month << "." << files[i].year << " " << files[i].hour << ":" << files[i].min << "   " << files[i].size << "mb" << endl;
+			if (files[i].min < 10 && files[i].hour < 10) {//the time created is a bit wierd, when one of the time sections are bellow 10 for example  if the time is 09:08 it returns the time 9:8, so i made a if statement to add the zeroes if it is needed
+				cout << i + 1 << ". " << files[i].name << " (File)   " << files[i].day << "." << files[i].month << "." << files[i].year << " 0" << files[i].hour << ":0" << files[i].min << "   " << files[i].size << "mb" << endl;
+			}
+			else if (files[i].min < 10) {
+				cout << i + 1 << ". " << files[i].name << " (File)   " << files[i].day << "." << files[i].month << "." << files[i].year << " " << files[i].hour << ":0" << files[i].min << "   " << files[i].size << "mb" << endl;
+			}
+			else if (files[i].hour < 10) {
+				cout << i + 1 << ". " << files[i].name << " (File)   " << files[i].day << "." << files[i].month << "." << files[i].year << " 0" << files[i].hour << ":" << files[i].min << "   " << files[i].size << "mb" << endl;
+			}
+			else{
+				cout << i + 1 << ". " << files[i].name << " (File)   " << files[i].day << "." << files[i].month << "." << files[i].year << " " << files[i].hour << ":" << files[i].min << "   " << files[i].size << "mb" << endl;
 			}
 		}
 		cout << endl;
@@ -131,10 +138,17 @@ public:
 	void printfolders() { //prints all folders in current folder
 		cout << endl;
 		for (int i = 0; i < foldercount; i++) {
-			if (folders[i]->min < 10) {
-			cout << i+1 << ". " << folders[i]->name << " (Folder)   " << folders[i]->day << "." << folders[i]->month << "." << folders[i]->year << " " << folders[i]->hour << ":0" << folders[i]->min << "   " << folders[i]->size << "mb" << endl;
-			}else{
-				cout << i+1 << ". " << folders[i]->name << " (Folder)   " << folders[i]->day << "." << folders[i]->month << "." << folders[i]->year << " " << folders[i]->hour << ":" << folders[i]->min << "   " << folders[i]->size << "mb" << endl;
+			if (folders[i]->min < 10 && folders[i]->hour < 10) {
+				cout << i + 1 << ". " << folders[i]->name << " (Folder)   " << folders[i]->day << "." << folders[i]->month << "." << folders[i]->year << " 0" << folders[i]->hour << ":0" << folders[i]->min << "   " << folders[i]->size << "mb" << endl;
+			}
+			else if (folders[i]->min < 10) {
+				cout << i + 1 << ". " << folders[i]->name << " (Folder)   " << folders[i]->day << "." << folders[i]->month << "." << folders[i]->year << " " << folders[i]->hour << ":0" << folders[i]->min << "   " << folders[i]->size << "mb" << endl;
+			}
+			else if(folders[i]->hour < 10) {
+				cout << i + 1 << ". " << folders[i]->name << " (Folder)   " << folders[i]->day << "." << folders[i]->month << "." << folders[i]->year << " 0" << folders[i]->hour << ":" << folders[i]->min << "   " << folders[i]->size << "mb" << endl;
+			}
+			else{
+				cout << i + 1 << ". " << folders[i]->name << " (Folder)   " << folders[i]->day << "." << folders[i]->month << "." << folders[i]->year << " " << folders[i]->hour << ":" << folders[i]->min << "   " << folders[i]->size << "mb" << endl;
 			}
 		}
 	}
