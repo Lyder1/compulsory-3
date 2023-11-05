@@ -8,7 +8,7 @@
 using namespace std;
 #pragma warning(disable : 4996)
 
-class file {
+class file { //creates a file class with values like name and size and all the rest
 public:
 	string name;
 	int size;
@@ -28,7 +28,7 @@ public:
 		hour = ltm->tm_hour;
 		min = ltm->tm_min;
 	}
-	file(string setname) {
+	file(string setname) { //constructor for all files that i want to add
 		time_t now = time(0);
 		tm* ltm = localtime(&now);
 		name = setname;
@@ -42,7 +42,7 @@ public:
 
 };
 
-class folder {
+class folder { // creates a folder class with the same values as files. name and size etc
 public:
 	int foldercount = 0;
 	int filecount = 0;
@@ -57,7 +57,7 @@ public:
 	int hour;
 	int min;
 
-	folder(string setName){
+	folder(string setName){ //constructor for all folders
 		time_t now = time(0);
 		tm* ltm = localtime(&now);
 		name = setName;
@@ -68,19 +68,19 @@ public:
 		hour = ltm->tm_hour;
 		min = ltm->tm_min;
 	}
-	int errorcontrolint() {
+	int errorcontrolint() { //errorcontrol for all int values, checks if they are valid numbers ant dont contain letters for example
 		string inputstr;
 		int input;
 		bool digitcheck;
 		cin >> inputstr;
 
-		for (int i = 0; i < inputstr.length(); i++) {
+		for (int i = 0; i < inputstr.length(); i++) { //for loop to check every letter or number and returns true if string only contains numbers
 			digitcheck = isdigit(inputstr[i]);
 			if (!digitcheck) {
 				break;
 			}
 		}
-		while (!digitcheck) {
+		while (!digitcheck) { //makes user reenter if digitcheck returns false
 			cin.clear();
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 			cout << "Please enter valid input" << endl << "input:";
@@ -93,22 +93,22 @@ public:
 			}
 		}
 
-		while(cin.fail()) {
+		while(cin.fail()) { //the above should fix most problems but here is a simple fix if something wierd happens. a simple if failed, reenter input
 			cin.clear();
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 			cout << "Please enter valid input" << endl << "input:";
 			cin >> input;
 		}
-		input = stoi(inputstr);
+		input = stoi(inputstr); //converts string to int
 		return input;
 	}
 
-	string errorcontrolstr() {
+	string errorcontrolstr() { //error control for all strings. names and stuff
 		string input;
 		cin.ignore();
-		getline(cin, input);
+		getline(cin, input); // the getline command allows the user to actually enter a "space"
 
-		while (cin.fail()) {
+		while (cin.fail()) { //if input failed, reenter input
 			cin.clear();
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 			cout << "Please enter valid input" << endl << "input:";
@@ -117,7 +117,7 @@ public:
 		return input;
 	}
 
-	void printfiles() {
+	void printfiles() { // print all files in the current folder
 		for (int i = 0; i < filecount; i++) {
 			if (files[i].min < 10) {
 			cout << i+1 << ". " << files[i].name << " (File)   " << files[i].day << "." << files[i].month << "." << files[i].year << " " << files[i].hour << ":0" << files[i].min << "   " << files[i].size << "mb" << endl;
@@ -128,7 +128,7 @@ public:
 		cout << endl;
 	}
 
-	void printfolders() {
+	void printfolders() { //prints all folders in current folder
 		cout << endl;
 		for (int i = 0; i < foldercount; i++) {
 			if (folders[i]->min < 10) {
@@ -139,25 +139,25 @@ public:
 		}
 	}
 
-	void renamefolder() {
+	void renamefolder() { //renames whatever folder you pick in currentfolder
 		string newname;
-		if (foldercount == 0) {
+		if (foldercount == 0) { //checks if there are any folders in currentfolder
 			cout << "You do not have a folder to rename" << endl << endl;
 		}else{
 			int index;
 			cout << "What folder do you want to rename?" << endl << "Folder number:";
 			index = errorcontrolint();
-			if (index >= 1 && index <= foldercount) {
+			if (index >= 1 && index <= foldercount) { //checks if the entered folder number actaully exists
 				cout << "What do you want to rename the folder?" << endl << "New folder name:";
 				newname = errorcontrolstr();
 				folders[index - 1]->name = newname;
-				cout << endl << getname() << ":";
+				cout << endl << getname() << ":"; //prints the name of the currentfolder
 				printfolders();
 				printfiles();
 
 			}
 			else {
-				while (index < 1 || index > foldercount) {
+				while (index < 1 || index > foldercount) { // while loop to reenter input if entered folder number does not exist in current folder. 
 					cout << "You do not have a folder with that number, please reenter" << endl << "Folder number:";
 					index = errorcontrolint();
 				}
@@ -171,9 +171,9 @@ public:
 		}
 	}
 
-	void renamefile() {
+	void renamefile() { //renames whatever file you pick in currentfolder. it works the exact same way as the above rename folder function, just replace every folder with file, so i am not typing the same notes again
 		string newname;
-		if (filecount == 0) {
+		if (filecount == 0) { 
 			cout << "You do not have a file to rename" << endl << endl;
 		}
 		else {
@@ -204,7 +204,7 @@ public:
 		}
 	}
 
-	void biggestfile() {
+	void biggestfile() { //pciks out the biggest file inside whatever folder you choose to search
 		time_t now = time(0);
 		tm* ltm = localtime(&now);
 		int index;
@@ -216,16 +216,16 @@ public:
 		int bfhour;
 		int bfmin;
 
-		if (foldercount == 0) {
+		if (foldercount == 0) { // checks if there are any fodlers to check
 			cout << "You do not have a folder to check" << endl << endl;
 		}else {
 			cout << "What folder do you want to check?" << endl << "Folder number:";
 			index = errorcontrolint();
-			if (folders[index - 1]->filecount == 0) {
+			if (folders[index - 1]->filecount == 0) { // checks if the entered folder cotains anything
 				cout << endl << "This folder is empty" << endl;
 			}else if (index >= 1 && index <= foldercount) {
-				for(int i = 0; i < folders[index-1]->filecount; i ++){
-					if (bfsize < folders[index - 1]->files[i].size) {
+				for(int i = 0; i < folders[index-1]->filecount; i ++){ // for loop to remember the biggest searched file
+					if (bfsize < folders[index - 1]->files[i].size) { // if the next searched file is bigger then the current biggest, the new one takes its place as teh biggest file
 						bfname = folders[index - 1]->files[i].name;
 						bfsize = folders[index - 1]->files[i].size;
 						bfday = folders[index - 1]->files[i].day;
@@ -235,7 +235,7 @@ public:
 						bfmin = folders[index - 1]->files[i].min;
 					}
 				}
-				if (bfmin < 10) {
+				if (bfmin < 10) { //print the information of the biggest file in the searched folder
 					cout << endl << "Biggest file in searched folder: " << bfname << "   " << bfday << "." << bfmonth << "." << bfyear << " " << bfhour << ":0" << bfmin << "   " << bfsize << "mb" << endl;
 				}
 				else {
@@ -243,7 +243,7 @@ public:
 				}
 			}
 			else {
-				while (index < 1 || index > foldercount) {
+				while (index < 1 || index > foldercount) { // makes user reenter if user enters a invalid number
 					cout << "You do not have a folder with that number, please reenter" << endl << "Folder number:";
 					index = errorcontrolint();
 				}
@@ -271,16 +271,16 @@ public:
 		printfiles();
 	}
 
-	string getname() {
+	string getname() { //fetches name of a folder
 		return name;
 	}
 
-	folder** getsubfolder() {
+	folder** getsubfolder() { //fetches sub folders
 		return folders;
 	}
 
-	folder* enterfolder(folder* filearray[]) {
-		if (foldercount == 0 && parentfolder == 0) {
+	folder* enterfolder(folder* filearray[]) { //enters whatever folder you choose in currentfolder, also gives you the option to go back to the previous folder
+		if (foldercount == 0 && parentfolder == 0) { // checks if there are any folders to enter and if the user is in the root folder it automatically adds a folder
 			cout << "You do not have any folder to enter so a folder has been added automatically" << endl;
 			folder* subfolder1 = new folder("New folder");
 			addfolder(subfolder1);
@@ -291,10 +291,10 @@ public:
 		cout << "Enter a folder number to enter or enter (0) to return to previous folder" << endl << "Folder number:";
 		index = errorcontrolint();
 
-		if (index >= 1 && index <= foldercount) {
+		if (index >= 1 && index <= foldercount) { //checks if teh folder entered exists in current folder
 			folders[index - 1]->getname();
 		}
-		if(index > foldercount){
+		if(index > foldercount){ //makes user reenter if entered folder number does not exist
 			while (index < 1 || index > foldercount) {
 				cout << "You do not have a folder with that number, please reenter" << endl << "Folder number:";
 				index = errorcontrolint();
@@ -303,7 +303,7 @@ public:
 			return filearray[index - 1];
 		}
 		if (index == 0) {
-			if(parentfolder != 0){
+			if(parentfolder != 0){ //checks if user is in the root folder
 				return parentfolder;
 			}else {
 				cout << "You are in root folder, please enter a folder number" << endl << "Folder number:";
@@ -325,8 +325,8 @@ public:
 		
 	}
 
-	void addfile(const file& newFile) {
-		if (filecount < 10) {
+	void addfile(const file& newFile) { //adds file to currentfolder
+		if (filecount < 10) { // checks if there are less then 10 files
 			files[filecount] = newFile;
 			filecount++;
 		}
@@ -335,8 +335,8 @@ public:
 		}
 	}
 
-	void addfolder(folder* newfolder) {
-		if (foldercount < 5) {
+	void addfolder(folder* newfolder) { //adds folder to currentfolder
+		if (foldercount < 5) { // checks if there are less then 5 folders
 			folders[foldercount] = newfolder;
 			newfolder->parentfolder = this;
 			foldercount++;

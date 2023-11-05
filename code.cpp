@@ -11,7 +11,7 @@ folder* parentfolder = currentfolder;
 folder* foldercheck;
 
 
-int errorcontrolint() { //this fucntion checks if all int inputs are valid aka numbers
+int errorcontrolint() { //checks if all int inputs are valid aka numbers
 	string inputstr;
 	int input;
 	bool digitcheck;
@@ -46,7 +46,7 @@ int errorcontrolint() { //this fucntion checks if all int inputs are valid aka n
 	return input;
 }
 
-string errorcontrolstr() {
+string errorcontrolstr() { //checks if all strings are valid, dont know how you can fuck up a string but this should fix it if its possible
 	string input;
 	cin.ignore();
 	getline(cin, input);
@@ -60,7 +60,7 @@ string errorcontrolstr() {
 	return input;
 }
 
-int main() {
+int main() { //this the main menu, here the code calls for all main functions
 	string foldername;
 	string filename;
 	int answer;
