@@ -12,15 +12,37 @@ folder* foldercheck;
 
 
 int errorcontrolint() { //this fucntion checks if all int inputs are valid aka numbers
+	string inputstr;
 	int input;
-	cin >> input;
+	bool digitcheck;
+	cin >> inputstr;
+
+	for (int i = 0; i < inputstr.length(); i++) {
+		digitcheck = isdigit(inputstr[i]);
+		if(!digitcheck) {
+			break;
+		}
+	}
+	while (!digitcheck) {
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		cout << "Please enter valid input" << endl << "input:";
+		cin >> inputstr;
+		for (int i = 0; i < inputstr.length(); i++) {
+			digitcheck = isdigit(inputstr[i]);
+			if (!digitcheck) {
+				break;
+			}
+		}
+	}
 
 	while (cin.fail()) {
 		cin.clear();
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');
 		cout << "Please enter valid input" << endl << "input:";
-		cin >> input;
+		cin >> inputstr;
 	}
+	input = stoi(inputstr);
 	return input;
 }
 

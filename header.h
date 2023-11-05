@@ -2,6 +2,9 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+#include <string>
+#include <cstdio>
+#include <cctype>
 using namespace std;
 #pragma warning(disable : 4996)
 
@@ -66,15 +69,37 @@ public:
 		min = ltm->tm_min;
 	}
 	int errorcontrolint() {
+		string inputstr;
 		int input;
-		cin >> input;
+		bool digitcheck;
+		cin >> inputstr;
 
-		while (cin.fail()) {
+		for (int i = 0; i < inputstr.length(); i++) {
+			digitcheck = isdigit(inputstr[i]);
+			if (!digitcheck) {
+				break;
+			}
+		}
+		while (!digitcheck) {
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			cout << "Please enter valid input" << endl << "input:";
+			cin >> inputstr;
+			for (int i = 0; i < inputstr.length(); i++) {
+				digitcheck = isdigit(inputstr[i]);
+				if (!digitcheck) {
+					break;
+				}
+			}
+		}
+
+		while(cin.fail()) {
 			cin.clear();
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 			cout << "Please enter valid input" << endl << "input:";
 			cin >> input;
 		}
+		input = stoi(inputstr);
 		return input;
 	}
 
@@ -126,6 +151,7 @@ public:
 				cout << "What do you want to rename the folder?" << endl << "New folder name:";
 				newname = errorcontrolstr();
 				folders[index - 1]->name = newname;
+				cout << endl << getname() << ":";
 				printfolders();
 				printfiles();
 
@@ -138,6 +164,7 @@ public:
 				cout << "What do you want to rename the folder?" << endl << "New folder name:";
 				newname = errorcontrolstr();
 				folders[index - 1]->name = newname;
+				cout << endl << getname() << ":";
 				printfolders();
 				printfiles();
 			}
@@ -157,6 +184,7 @@ public:
 				cout << "What do you want to rename the file?" << endl << "New file name:";
 				newname = errorcontrolstr();
 				files[index - 1].name = newname;
+				cout << endl << getname() << ":";
 				printfolders();
 				printfiles();
 
@@ -169,6 +197,7 @@ public:
 				cout << "What do you want to rename the file?" << endl << "New file name:";
 				newname = errorcontrolstr();
 				files[index - 1].name = newname;
+				cout << endl << getname() << ":";
 				printfolders();
 				printfiles();
 			}
@@ -207,10 +236,10 @@ public:
 					}
 				}
 				if (bfmin < 10) {
-					cout << endl << "Biggest file in searched folder: " << bfname << "   " << bfday << "." << bfmonth << "." << bfyear << " " << bfhour << ":0" << bfmin << "   " << bfsize << "mb" << endl << endl;
+					cout << endl << "Biggest file in searched folder: " << bfname << "   " << bfday << "." << bfmonth << "." << bfyear << " " << bfhour << ":0" << bfmin << "   " << bfsize << "mb" << endl;
 				}
 				else {
-					cout << endl << "Biggest file in searched folder: " << bfname << "   " << bfday << "." << bfmonth << "." << bfyear << " " << bfhour << ":" << bfmin << "   " << bfsize << "mb" << endl << endl;
+					cout << endl << "Biggest file in searched folder: " << bfname << "   " << bfday << "." << bfmonth << "." << bfyear << " " << bfhour << ":" << bfmin << "   " << bfsize << "mb" << endl;
 				}
 			}
 			else {
@@ -237,6 +266,7 @@ public:
 				}
 			}
 		}
+		cout << endl << getname() << ":";
 		printfolders();
 		printfiles();
 	}
@@ -258,7 +288,7 @@ public:
 			printfiles();
 		}
 		int index;
-		cout << "Enter a folder number to enter or enter (-1) to return to previous folder" << endl << "Folder number:";
+		cout << "Enter a folder number to enter or enter (0) to return to previous folder" << endl << "Folder number:";
 		index = errorcontrolint();
 
 		if (index >= 1 && index <= foldercount) {
@@ -272,14 +302,14 @@ public:
 			}
 			return filearray[index - 1];
 		}
-		if (index == -1) {
+		if (index == 0) {
 			if(parentfolder != 0){
 				return parentfolder;
 			}else {
 				cout << "You are in root folder, please enter a folder number" << endl << "Folder number:";
 				while (index < 1 || index > foldercount) {
 					index = errorcontrolint();
-					if (index == -1) {
+					if (index == 0) {
 						cout << "You are in the root folder, please enter a folder number" << endl << "Folder number:";
 					}
 					if(index > foldercount) {
@@ -292,6 +322,7 @@ public:
 		else {
 			return filearray[index - 1];
 		}
+		
 	}
 
 	void addfile(const file& newFile) {
